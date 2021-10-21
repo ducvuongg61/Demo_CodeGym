@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create new user</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/create.js"></script>
+</head>
+<body>
+    <h1 th:text="#{create.header}">Create new user</h1>
+    <form name="create" th:action="@{/user/create}" method="post" th:object="${user}">
+        <table>
+            <tr>
+                <td th:text="#{create.id}">ID</td>
+                <td><input type="text" th:placeholder="${'ID of user'}" name="id" th:field="*{id}" th:id="id"></td>
+            </tr>
+            <tr>
+                <td th:text="#{create.name}">Name</td>
+                <td>
+                    <input type="text" th:placeholder="${'Name of user'}" name="name" th:field="*{name}" th:id="name">
+                    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red">Name Error</p>
+                <td/>
+            </tr>
+            <tr>
+                <td th:text="#{create.age}">Age</td>
+                <td>
+                    <input type="text" th:placeholder="${'Age of user'}" name="id" th:field="*{age}" th:id="age">
+                    <p th:if="${#fields.hasErrors('age')}" th:errors="*{age}" style="color:red">Age Error</p>
+                </td>
+            </tr>
+            <tr>
+                <td th:text="#{create.address}">Address</td>
+                <td>
+                    <input type="text" th:placeholder="#{create.address.placeholder}" name="id" th:field="*{address}" th:id="address">
+                    <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" style="color:red">Address Error</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="reset" th:text="#{create.reset}">Reset</button>
+                </td>
+                <td>
+                    <button type="submit" th:text="#{create.submit}">Submit</button>
+                </td>
+            </tr>
+        </table>
+        <p th:data th:attr="data=${'aa' + user.id}"></p>
+        <input type="hidden" name="action" th:value="${action}">
+    </form>
+    <button onclick="saveUser();">Submit with ajax</button>
+</body>
+</html>

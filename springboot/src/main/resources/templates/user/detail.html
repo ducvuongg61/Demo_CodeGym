@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail user</title>
+    <link rel="stylesheet" th:href="@{/css/detail.css}">
+</head>
+<body>
+    <div th:replace="~{user/template.html::headerWithUser(${user.name})}"></div>
+    <h1>Detail of user</h1>
+    <div th:object="${user}">
+        <p>ID: <span th:text="*{id}"></span></p>
+        <p>Name: <span th:text="*{name}"></span></p>
+        <p>Address: <span th:text="*{address}"></span></p>
+        <p>Age: <span th:text="*{age}"></span></p>
+    </div>
+    <div th:replace="~{user/template.html::footer}"></div>
+</body>
+</html>

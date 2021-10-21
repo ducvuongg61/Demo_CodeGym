@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/list.js"></script>
+</head>
+<body>
+    <div>
+        <a href="?lang=en" th:text="#{list.english}">English</a>
+        <a href="?lang=vi" th:text="#{list.vietnam}">Vietnamese</a>
+        <a href="?lang=fr" th:text="#{list.france}">French</a>
+    </div>
+    <div th:insert="~{user/template.html::header}"></div>
+    <h1 id="test" th:text="#{list.header}">List user</h1>
+    <a href="/user/create" th:text="#{list.create}">Create new user</a>
+<!--    <form action="/user/index">-->
+        Name: <input type="text" name="nameSearch" id="name" />
+<!--        <input type="submit" value="Search">-->
+        <button onclick="searchByName();">Search</button>
+<!--    </form>-->
+    <form action="/user/index">
+        Age: <input type="text" name="ageSearch" id="age" />
+        <input type="submit" value="Search">
+    </form>
+    <table border="1" id="result">
+        <tr>
+            <th>No</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Address</th>
+            <th>Detail</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <tr th:each="user, row: ${users}">
+            <td th:text="${row.index + 1}"></td>
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.age}"></td>
+            <td th:text="${user.address}"></td>
+            <td><a th:href="@{/user/detail/{id}(id=${user.id})}">Detail</a></td>
+            <td><a th:href="@{/user/edit/{id}(id=${user.id})}">Edit</a></td>
+            <td><a th:href="@{/user/delete/{id}(id=${user.id})}">Delete</a></td>
+        </tr>
+    </table>
+    <p th:if="${message}" th:text="${message}"></p>
+    <div th:replace="~{user/template.html::footer}"></div>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Value</th>
+            <th>Age</th>
+        </tr>
+        <tr th:each="cookie, row: ${cookies}">
+            <td th:text="${cookie.name}"></td>
+            <td th:text="${cookie.value}"></td>
+            <td th:text="${cookie.getMaxAge()}"></td>
+        </tr>
+    </table>
+
+    <h1>Số lần truy cập trang web <span th:text="${count}"></span></h1>
+</body>
+</html>
